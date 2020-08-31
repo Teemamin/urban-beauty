@@ -3,7 +3,7 @@ from products.models import Product, Category
 
 
 def home(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(category__name="new_arrivals")
     context = {
         'products': products
     }
