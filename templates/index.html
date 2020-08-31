@@ -39,7 +39,15 @@
                     <div class="new_arrival_iner filter-container">
                       {%for product in products%}
                         <div class="single_arrivel_item wdt">
-                            <img src="{{ product.image.url }}" alt="#">
+                        {% if product.image%}
+                            <a href="#">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            </a>
+                        {% else %}
+                            <a href="#">
+                                <img class="" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                            </a>
+                        {% endif %}
                             <div class="hover_text">
                                 <p>{{product.name}}</p>
                                 <a href="#"><h3>{{product.description}}</h3></a>
