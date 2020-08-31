@@ -77,9 +77,9 @@
                                             women's section <i class="fas fa-arrow-circle-right"></i>
                                             
                                         </a>
-                                        <a class="dropdown-item" href="#">dresses</a>
-                                        <a class="dropdown-item" href="#">leggings & pants</a>
-                                        <a class="dropdown-item" href="#">nightware</a>
+                                        <a class="dropdown-item" href="{% url 'products' %}?cat=dresses">dresses</a>
+                                        <a class="dropdown-item" href="{% url 'products' %}?cat=leggings&pants">leggings & pants</a>
+                                        <a class="dropdown-item" href="{% url 'products' %}?cat=nightware">nightware</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -143,8 +143,8 @@
         </div>
         <div class="search_input" id="search_input_box">
             <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search">
+                <form method="GET" action="{% url 'products' %}" class="d-flex justify-content-between search-inner">
+                    <input type="text" class="form-control" id="search_input" name="search" placeholder="Search">
                     <button type="submit" class="btn"></button>
                     <span class="ti-close" id="close_search" title="Close Search"></span>
                 </form>
