@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404,\
 from django.db.models import Q
 from django.contrib import messages
 from .models import Product, Category
-from .filters import ProductFilter
+from .forms import ProductForm
+# from .filters import ProductFilter
 # Create your views here.
 
 
@@ -29,7 +30,7 @@ def all_products(request):
     context = {
         'products': products,
         'categories': categories,
-        #'myFilter': myFilter
+        # 'myFilter': myFilter
     }
     return render(request, 'products/products.html', context)
 
@@ -40,3 +41,11 @@ def single_product(request, product_id):
         'product': product
     }
     return render(request, 'products/single_product.html', context)
+
+
+def new_product(request):
+    form = ProductForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'products/new_product.html', context)
