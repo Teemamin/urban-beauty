@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404,\
     redirect, reverse
+from django.db.models.functions import Lower
 from django.db.models import Q
 from django.contrib import messages
 from .models import Product, Category
@@ -10,7 +11,10 @@ from .forms import ProductForm
 
 def all_products(request):
     products = Product.objects.all()
-    categories = Category.objects.all
+    categories = None
+    sort = None
+    direction = None
+    search_word = None
     # myFilter = ProductFilter(request.GET, queryset=products)
     # products = myFilter.qs
     if request.GET:
@@ -27,9 +31,28 @@ def all_products(request):
                 Q(description__icontains=search_word)\
                 | Q(color__icontains=search_word)
             products = products.filter(search_words)
+
+        if 'arrange' in request.GET:
+            sort_word = request.GET['arrange']
+            sort = sort_word
+            if sort_word == 'name':
+                sort_word = 'lower_name'
+                products = products.annotate(lower_name=Lower('name'))
+
+            if sort_word == 'category':
+                sort_word = 'category__name'
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sort_word = f'-{sort_word}'
+            products = products.order_by(sort_word)
+    sorting = f'{sort}_{direction}'
     context = {
         'products': products,
         'categories': categories,
+        'sorting': sorting,
+        'search_word': search_word,
         # 'myFilter': myFilter
     }
     return render(request, 'products/products.html', context)

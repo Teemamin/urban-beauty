@@ -757,7 +757,9 @@ body {
   font-weight: 400;
   margin-bottom: 20px;
 }
-
+.prdct_padding{
+    padding: 50px;
+}
 .widgets_inner input[type=checkbox], .widgets_inner input[type=radio] {
   margin-right: 15px;
 }

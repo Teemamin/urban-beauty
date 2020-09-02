@@ -2,12 +2,17 @@
 {% load static %}
 
 {% block content %}
-    <section class="cat_product_area section_padding border_top">
+    <section class="cat_product_area prdct_padding border_top">
         <div class="container">
             <div class="row">
+                <div class="col">
+                    {% if search_word %}
+                        <p> {{search_word | length}} Product(s) available for your search "{{search_word}}"</p>
+                    {% endif %}
+                </div>
                 <div class="col">{% for category in categories %}
                     <a class="text-decoration-none" href="{% url 'products' %}?cat={{ category.name }}">
-                        <span class="p-2 mt-2 badge badge-white  rounded-2 border border-light">{{ category.name }}</span>
+                        <span class="p-2 mt-2 badge  rounded-2 border border-light">{{ category.name }}</span>
                     </a>
                 {% endfor %}</div>
             </div>
@@ -63,7 +68,7 @@
                                 <div class="product_top_bar_iner product_bar_item d-flex">
                                     <div class="product_bar_single">
                                         <select class="wide">
-                                            <option value="default">Suggested</option>
+                                            <option value="default" {% if sorting == 'None_None' %}selected{% endif %}>Suggested</option>
                                             <option value="price_asc" {% if sorting == 'price_asc' %}selected{% endif %}>Price(High)</option>
                                             <option value="price_desc" {% if sorting == 'price_desc' %}selected{% endif %}>Price(Low)</option>
                                             <option value="sales" {% if sorting == 'sales' %}selected{% endif %}>Sales</option>
@@ -87,11 +92,18 @@
                         <div class="col-lg-4 col-sm-6">
                             <div class="single_product">
                                 <div class="single_category_img">
-                                    <img src="{{ product.image.url }}" alt="{{product.name}}">
+                                    <a href="{% url 'single_product' product.id%}">
+                                        <img src="{{ product.image.url }}" alt="{{product.name}}">
+                                    </a>
                                     <div class="category_social_icon">
                                         <ul>
                                             <li><a href="#"><i class="far fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fas fa-shopping-bag"></i></a></li>
+                                            {% if product.has_sizes%}
+                                               <li class="d-none"><a href="{% url 'shopping_bag'%}"><i class="fas fa-shopping-bag"></i></a></li>
+                                             {% else %}
+                                               <li class="d-block"><a href="{% url 'shopping_bag'%}"><i class="fas fa-shopping-bag"></i></a></li>
+
+                                            {% endif %}
                                         </ul>
                                     </div>
                                     <div class="category_product_text">

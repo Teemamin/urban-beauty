@@ -52,27 +52,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                                 </li>
-                                <!-- <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        All products
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="#"> shop by category</a>
-                                        <a class="dropdown-item" href="#">shop by price </a>
-                                        <a class="dropdown-item" href="#">shop by color </a>
-                                        <a class="dropdown-item" href="#">shop by all products </a>
-
-
-                                        
-                                    </div>
-                                </li> -->
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_3"
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         women
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="{% url 'products' %}?cat=tops,dresses,leggings&pants"> 
                                             women's section <i class="fas fa-arrow-circle-right"></i>
                                             
@@ -83,7 +68,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_3"
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_2"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Men
                                     </a>
@@ -97,13 +82,28 @@
                                         <a class="dropdown-item" href="{% url 'products' %}?cat=shoes">shoes</a>
                                     </div>
                                 </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_4"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Shop By
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_4">
+                                        <a class="dropdown-item" href="{% url 'products' %}?arrange=rating&direction=desc">shop by Rating </a>
+                                        <a class="dropdown-item" href="{% url 'products' %}?arrange=price&direction=asc"> shop by Price</a>
+                                        <a class="dropdown-item" href="{% url 'products' %}?arrange=category&direction=asc">shop by Category </a>
+                                       
+
+
+                                        
+                                    </div>
+                                </li>
                                 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="{% url 'products' %}?cat=bags,earings&necklaces" id="navbarDropdown_2"
+                                    <a class="nav-link dropdown-toggle" href="{% url 'products' %}?cat=bags,earings&necklaces" id="navbarDropdown_3"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         accessories
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_3">
                                         <a class="dropdown-item" href="{% url 'products' %}?cat=bags"> Bags</a>
                                         <a class="dropdown-item" href="{% url 'products' %}?cat=earings&necklaces">Earings & Necklace</a>
                                         <!-- <a class="dropdown-item" href="#">necklace</a> -->
