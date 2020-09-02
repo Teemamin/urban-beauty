@@ -19,7 +19,7 @@
    <section class="cart_area section_padding">
     <div class="container">
       <div class="cart_inner">
-        {% if bag_has_content%}
+        {% if bag_content%}
             <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -72,10 +72,10 @@
                     <td></td>
                     <td></td>
                     <td>
-                    <h5>Subtotal</h5>
+                    <h5>Grand total</h5>
                     </td>
                     <td>
-                    <h5>$2160.00</h5>
+                    <h5>$ {{total_cost|floatformat:2}}</h5>
                     </td>
                 </tr>
                 <tr class="shipping_area">
