@@ -101,7 +101,7 @@
                                             {% if product.has_sizes%}
                                                <li class="d-none"><a href="{% url 'add_to_shopping_bag' product.id %}"><i class="fas fa-shopping-bag"></i></a></li>
                                              {% else %}
-                                               <li class="d-block"><a href="{% url 'add_to_shopping_bag' product.id %}"><i class="fas fa-shopping-bag"></i></a></li>
+                                               <li class="d-block"><a href="{% url 'shopping_bag'%}"><i class="fas fa-shopping-bag"></i></a></li>
 
                                             {% endif %}
                                         </ul>

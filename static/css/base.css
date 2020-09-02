@@ -876,3 +876,90 @@ body {
   background-color: #136cfa;
   color: #fff;
 }
+
+/** shoping bag**/
+.cart_inner .table {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #dddddd;
+}
+
+
+.cart_inner .table thead tr th {
+  border-top: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+  color: #797979;
+  border-bottom: 0px !important;
+}
+
+.cart_inner .table tbody tr td {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  vertical-align: middle;
+  align-self: center;
+}
+
+.cart_inner .table tbody tr td .media .d-flex {
+  padding-right: 30px;
+}
+
+
+.cart_inner .table tbody tr td .media .d-flex img {
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  max-width: 150px;
+}
+
+.cart_inner .table tbody tr td .media .media-body {
+  vertical-align: middle;
+  align-self: center;
+}
+
+.cart_inner .table tbody tr td .media .media-body p {
+  margin-bottom: 0px;
+}
+
+.cart_inner .table tbody tr td h5 {
+  font-size: 14px;
+  color: #2a2a2a;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 0px;
+}
+
+.cart_inner .table tbody tr td .product_count {
+  margin-bottom: 0px;
+}
+
+.cart_inner .table tbody tr td .product_count input {
+  width: 100px;
+  padding-left: 30px;
+  height: 50px;
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

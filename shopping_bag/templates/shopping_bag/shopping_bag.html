@@ -31,19 +31,25 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for itm in bag_content%}
                 <tr>
                     <td>
                     <div class="media">
                         <div class="d-flex">
-                        <img src="" alt="" />
+                        <img src="{{itm.product.image.url}}" alt="{{itm.product.name}}" />
                         </div>
                         <div class="media-body">
-                        <p>Minimalistic shop for multipurpose use</p>
+                        <p>{{itm.product.name}}</p>
+                        {%if itm.product.has_sizes %}
+                            <p>Size: {{itm.size}}</p>
+                        {% else %}
+                        <p>N/A</p>
+                    {% endif %}
                         </div>
                     </div>
                     </td>
                     <td>
-                    <h5>$360.00</h5>
+                    <h5>${{itm.product.price}}</h5>
                     </td>
                     <td>
                     <div class="product_count">
@@ -53,18 +59,19 @@
                     </div>
                     </td>
                     <td>
-                    <h5>$720.00</h5>
+                    <h5>${{itm.total_cost}}</h5>
                     </td>
                 </tr>
+                {% endfor %}
                 <tr class="bottom_button">
                     <td>
-                    <a class="btn_1" href="#">Continue Shopping</a>
+                    <a class="btn_3" href="#">Continue Shopping</a>
                     </td>
                     <td></td>
                     <td></td>
                     <td>
                     <div class="cupon_text float-right">
-                        <a class="btn_1" href="#">Proceed to Secure Checkout</a>
+                        <a class="btn_3" href="#">Proceed to Secure Checkout</a>
                     </div>
                     </td>
                 </tr>
@@ -72,20 +79,22 @@
                     <td></td>
                     <td></td>
                     <td>
+                    <h5>Delivery</h5>
+                    </td>
+                    <td>
+                    <h5>${{delivery_cost}}</h5>
+                    </td>
+                </tr>
+                <tr class="">
+                    <td></td>
+                    <td></td>
+                    <td>
                     <h5>Grand total</h5>
                     </td>
-                    <td>
-                    <h5>$ {{total_cost|floatformat:2}}</h5>
-                    </td>
-                </tr>
-                <tr class="shipping_area">
-                    <td></td>
-                    <td></td>
-                    <td>
-                    <h5>Shipping</h5>
-                    </td>
+                     <td><h5>${{grand_total|floatformat:2}}</h5></td>
                 </tr>
                 </tbody>
+            
             </table>
             <div class="checkout_btn_inner float-right">
                 <!-- <a class="btn_1" href="#">Continue Shopping</a> -->
