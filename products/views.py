@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.contrib import messages
 from .models import Product, Category
 from .forms import ProductForm
+from shopping_bag.models import Bag
 # from .filters import ProductFilter
 # Create your views here.
 
@@ -60,8 +61,10 @@ def all_products(request):
 
 def single_product(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
+    bag_obj, new_obj = Bag.objects.new_or_get(request)
     context = {
-        'product': product
+        'product': product,
+        'bag': bag_obj
     }
     return render(request, 'products/single_product.html', context)
 
