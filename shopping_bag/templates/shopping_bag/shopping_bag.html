@@ -19,7 +19,7 @@
    <section class="cart_area section_padding">
     <div class="container">
       <div class="cart_inner">
-        {% if bag_content%}
+        {% if cart.products.exists %}
             <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -31,25 +31,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for itm in bag_content%}
+                {% for itm in cart.products.all%}
                 <tr>
                     <td>
                     <div class="media">
                         <div class="d-flex">
-                        <img src="{{itm.product.image.url}}" alt="{{itm.product.name}}" />
+                        <img src="{{itm.image.url}}" alt="{{itm.name}}" />
                         </div>
                         <div class="media-body">
-                        <p>{{itm.product.name}}</p>
-                        {%if itm.product.has_sizes %}
+                        <p>{{itm.name}}</p>
+                        {%if itm.has_sizes %}
                             <p>Size: {{itm.size}}</p>
                         {% else %}
                         <p>N/A</p>
-                    {% endif %}
+                       {% endif %}
                         </div>
                     </div>
                     </td>
                     <td>
-                    <h5>${{itm.product.price}}</h5>
+                    <h5>${{itm.price}}</h5>
                     </td>
                     <td>
                     <div class="product_count">
@@ -59,7 +59,7 @@
                     </div>
                     </td>
                     <td>
-                    <h5>${{itm.total_cost}}</h5>
+                    <h5>${{cart.subtotal}}</h5>
                     </td>
                 </tr>
                 {% endfor %}
@@ -91,7 +91,7 @@
                     <td>
                     <h5>Grand total</h5>
                     </td>
-                     <td><h5>${{grand_total|floatformat:2}}</h5></td>
+                     <td><h5>${{cart.total}}</h5></td>
                 </tr>
                 </tbody>
             
@@ -104,6 +104,7 @@
             {% else %}
                 <div class="mx-auto" style="width: 200px;">
                     <p> Shopping Bag is Empty</p>
+                    {{cart.products}}
                     <a href="{% url 'home'%}" class="btn_3"> Back to Home</a>
                 </div>
         {% endif %}

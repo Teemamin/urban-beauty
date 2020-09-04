@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-    {{bag}}
-
-    <!-- <div class="product_image_area">
+    {{cart}}
+ 
+    <div class="product_image_area">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
@@ -46,7 +46,7 @@
                     <p class="mt-3">{{ product.color }}</p>
                     {% endif%}
                     <p class="mt-3">{{ product.description }}</p>
-                    <form class="form" action="{% url 'add_to_shopping_bag' product.id %}" method="POST">
+                    <form class="form" action="{% url 'add_to_shopping_bag' %}" method="POST">
                         {% csrf_token %}
                         <div class="form-row">
                             
@@ -98,8 +98,15 @@
                                     <span class="text-uppercase">Continue Shopping</span>
                                 </a>
                                 <input type="submit" class="btn btn_3 rounded-0  text-uppercase mt-5" value="Add to Bag">
+                                <!-- {% if product in cart.products.all %} -->
+                                
+                                <!-- {% else %} -->
+                                <!-- <input type="submit" class="btn btn_3 rounded-0  text-uppercase mt-5" value="Remove"> -->
+                                <!-- {% endif %} -->
                             </div>
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <input type="hidden" name="product_id" value="{{ product.id}}">
+
                             
                         </div>
                     </form>
@@ -107,5 +114,5 @@
             </div>
         </div>
     </div>
-  </div> -->
+  </div>
 {% endblock %}

@@ -15,8 +15,9 @@ class BagManager(models.Manager):
         if qs.count() == 1:
             new_obj = False
             bag_obj = qs.first()
-            if request.user.is_authenticated() and bag_obj.uset is None:
-                bag_obj.user = request.userbag_obj.save()
+            if request.user.is_authenticated and bag_obj.user is None:
+                bag_obj.user = request.user
+                bag_obj.save()
         else:
             bag_obj = Bag.objects.new(user=request.user)
             new_obj = True
@@ -26,16 +27,17 @@ class BagManager(models.Manager):
     def new(self, user=None):
         user_obj = None
         if user is not None:
-            if user.is_authenticated():
-                user_obj = user_obj
+            if user.is_authenticated:
+                user_obj = user
         return self.model.objects.create(user=user_obj)
 
 
 class Bag(models.Model):
-    user = models.ForeignKey(User, null=True, blank=True,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.CASCADE
+    )
     products = models.ManyToManyField(Product, blank=True)
-    sub_total = models.DecimalField(
+    subtotal = models.DecimalField(
         default=0.00, max_digits=100, decimal_places=2
     )
     total = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
@@ -64,7 +66,10 @@ m2m_changed.connect(m2m_changed_bag_receiver, sender=Bag.products.through)
 
 
 def pre_save_bag_receiver(sender, instance, *args, **kwargs):
-    instance.total = instance.subtotal + 10  # * 1.08
+    if instance.subtotal > 0:
+        instance.total = instance.subtotal + 10  # * 1.08
+    else:
+        instance.total = 0.00
 
 
 pre_save.connect(pre_save_bag_receiver, sender=Bag)

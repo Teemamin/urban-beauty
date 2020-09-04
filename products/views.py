@@ -59,12 +59,12 @@ def all_products(request):
     return render(request, 'products/products.html', context)
 
 
-def single_product(request, product_id):
+def single_product(request, product_id,*args, **kwargs):
     product = get_object_or_404(Product, pk=product_id)
     bag_obj, new_obj = Bag.objects.new_or_get(request)
     context = {
         'product': product,
-        'bag': bag_obj
+        'cart': bag_obj
     }
     return render(request, 'products/single_product.html', context)
 

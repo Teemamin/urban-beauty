@@ -8,22 +8,30 @@ from .models import Bag
 
 def shopping_bag(request):
     bag_obj, new_obj = Bag.objects.new_or_get(request)
-    products = bag_obj.products.all()
-    total = 0
-    for x in products:
-        total += x.price
-    print(total)
-    bag_obj.total = total
-    bag_obj.save()
-    return render(request, 'shopping_bag/shopping_bag.html', {})
+    # products = bag_obj.products.all()
+    context = {
+        'cart': bag_obj
+    }
+    return render(request, 'shopping_bag/shopping_bag.html', context)
 
 
 def add_to_shopping_bag(request):
-    content_id = 1
-    product_obj = Product.objects.get(id=content_id)
-    bag_obj, new_obj = Bag.objects.new_or_get(request)
-    bag_obj.products.add(product_obj)
-    return redirect("")
+    product_id = request.POST.get('product_id')
+    product_obj = Product.objects.get(id=product_id)
+    redirect_url = request.POST.get('redirect_url')
+    if product_id is not None:
+        try:
+            product_obj = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            print("Product not found")
+            return redirect(redirect_url)
+        bag_obj, new_obj = Bag.objects.new_or_get(request)
+        if product_obj in bag_obj.products.all():
+            bag_obj.products.remove(product_obj)
+        else:
+            bag_obj.products.add(product_obj)
+
+    return redirect(redirect_url)
 
 
 # def shopping_bag(request):
