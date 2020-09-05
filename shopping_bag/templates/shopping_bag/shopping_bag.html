@@ -45,6 +45,7 @@
                         {% else %}
                         <p>N/A</p>
                        {% endif %}
+                       {% include "products/update_bag.html" with product=itm cart=cart in_bag=True %}
                         </div>
                     </div>
                     </td>

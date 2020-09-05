@@ -938,7 +938,11 @@ body {
   outline: none;
   box-shadow: none;
 }
-
+/** btns **/
+.rmbtn{
+    padding: 0px;
+    cursor: pointer;
+}
 
 
 

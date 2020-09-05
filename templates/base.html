@@ -136,7 +136,7 @@
                                     {% if grand_total %}
                                         <p class="my-auto">${{grand_total|floatformat:2}}</p>
                                         {% else %}
-                                        <p>$0.0</p>
+                                        <p>{{cart.total}}</p>
                                     {% endif %}
                                 </a>
                             </div>
