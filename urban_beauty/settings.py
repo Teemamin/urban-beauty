@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # myapps
     'products',
     'shopping_bag',
+    'checkout',
 ]
 
 MIDDLEWARE = [

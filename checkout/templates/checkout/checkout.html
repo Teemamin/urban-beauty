@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <p>bag total: {{order.bag.total}}</p>
+    <p>deivery : {{order.delivery_total}}</p>
+    <p>order total : {{order.total}}</p>
+
+{% endblock %}
