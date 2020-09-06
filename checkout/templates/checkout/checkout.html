@@ -2,8 +2,12 @@
 {% load static %}
 
 {% block content %}
-    <p>bag total: {{order.bag.total}}</p>
-    <p>deivery : {{order.delivery_total}}</p>
-    <p>order total : {{order.total}}</p>
-
+    {% if not billing %}
+        <a href="{% url 'account_login' %}?next={{request.path}}" class="btn">Login</a>
+        continue as guest
+    {% else %}
+        <p>bag total: {{order.bag.total}}</p>
+        <p>deivery : {{order.delivery_total}}</p>
+        <p>order total : {{order.total}}</p>
+    {% endif %}
 {% endblock %}
