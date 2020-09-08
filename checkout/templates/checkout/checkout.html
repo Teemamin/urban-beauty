@@ -2,9 +2,13 @@
 {% load static %}
 
 {% block content %}
+
+    {{ order.order_id }} -- {{ order.cart }}
     {% if not billing %}
         <a href="{% url 'account_login' %}?next={{request.path}}" class="btn">Login</a>
-        continue as guest
+        <a href="#"> continue as guest </a> 
+        {% url "guest_profile" as guest_profile_url %}
+    {% include 'profiles/guest_profile.html' with form=form next_url=request.build_absolute_uri action_url=guest_profile_url %}
     {% else %}
         <p>bag total: {{order.bag.total}}</p>
         <p>deivery : {{order.delivery_total}}</p>

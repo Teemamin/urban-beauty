@@ -1,0 +1,8 @@
+<form method="POST" action="{%url 'guest_profile' %}"> {% csrf_token %}
+    <!-- {% if next_url %} -->
+    <!-- <input type="hidden" name="next" value="{{ next_url }}" /> -->
+    <!-- {% endif %} -->
+    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+  {{ form }}
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
