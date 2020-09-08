@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    {{ order.order_id }} -- {{ order.cart }}
+    {{ order.order_number }} -- {{ order.bag }}
     {% if not billing %}
         <a href="{% url 'account_login' %}?next={{request.path}}" class="btn">Login</a>
         <a href="#"> continue as guest </a> 

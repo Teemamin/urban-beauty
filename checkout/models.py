@@ -5,8 +5,29 @@ import math
 
 from shopping_bag.models import Bag
 from django.contrib.auth.models import User
+from profiles.models import GuestEmail
 
 # Create your models here.
+
+
+class BillingManager(models.Manager):
+    def new_or_get(self, request):
+        user = request.user
+        guest_email_id = request.session.get('guest_email_id')
+        created = False
+        obj = None
+        if user.is_authenticated:
+            obj, created = self.model.objects.get_or_create(
+                            user=user, email=user.email)
+        elif guest_email_id is not None:
+            guest_email_obj = GuestEmail.objects.get(id=guest_email_id)
+            obj, created = self.model.objects.get_or_create(
+                                            email=guest_email_obj.email)
+        else:
+            pass
+        return obj, created
+
+
 
 
 class Billing(models.Model):
@@ -17,6 +38,8 @@ class Billing(models.Model):
     active = models.BooleanField(default=True)
     update = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    objects = BillingManager()
 
     def __str__(self):
         return self.email
