@@ -61,3 +61,6 @@ def checkout(request):
     }
     return render(request, 'checkout/checkout.html', context)
 
+def checkout_success(request):
+    return render(request, 'checkout/checkout_success.html')
+
