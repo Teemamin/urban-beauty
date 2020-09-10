@@ -5,7 +5,7 @@ import math
 
 from shopping_bag.models import Bag
 from django.contrib.auth.models import User
-from profiles.models import GuestEmail
+from profiles.models import GuestEmail, Address
 
 # Create your models here.
 
@@ -67,7 +67,9 @@ class OrderManager(models.Manager):
         qs = self.get_queryset().filter(
                 billing_profile=billing_profile,
                 bag=bag_obj,
-                active=True)
+                active=True,
+                order_status='created'
+                )
         if qs.count() == 1:
             obj = qs.first()
         else:
@@ -84,6 +86,8 @@ class OrderManager(models.Manager):
 class Order(models.Model):
     billing_profile = models.ForeignKey(Billing, null=True, blank=True, on_delete=models.CASCADE)
     order_number = models.CharField(max_length=32, null=False, editable=False)
+    delivery_address = models.ForeignKey(Address, related_name="delivery_address",null=True, blank=True, on_delete=models.CASCADE)
+    billing_address = models.ForeignKey(Address, related_name="billing_address", null=True, blank=True, on_delete=models.CASCADE)
     bag = models.ForeignKey(Bag, on_delete=models.CASCADE)
     order_status = models.CharField(
         max_length=50, default='created', choices=ORDER_STATUS
@@ -108,7 +112,6 @@ class Order(models.Model):
         self.total = total_formated
         self.save()
         return total_formated
-    
 
     def save(self, *args, **kwargs):
         """
@@ -122,6 +125,23 @@ class Order(models.Model):
         return self.order_number
 
     objects = OrderManager()
+
+    def see_if_order_done(self):
+        billing_profile = self.billing_profile
+        delivery_address = self.delivery_address
+        billing_address = self.billing_address
+        total = self.total
+        if billing_profile and delivery_address and \
+                billing_address and total > 0:
+            return True
+        return False
+
+    def mark_as_paid(self):
+        if self.see_if_order_done():
+            self.status = "paid"
+            self.save()
+        return self.status
+
 
 
 def pre_save_create_order_id(sender, instance, *args, **kwargs):

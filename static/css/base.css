@@ -944,6 +944,29 @@ body {
     cursor: pointer;
 }
 
+/** checkout **/
+
+.check_title h2 {
+  font-size: 14px;
+  font-weight: normal;
+  font-family: "Roboto", sans-serif;
+  background: #f4f4f4;
+  line-height: 40px;
+  padding-left: 30px;
+  margin-bottom: 0px;
+}
+
+@media (max-width: 991px) {
+  .check_title h2 {
+    line-height: 17px;
+    padding: 12px;
+  }
+}
+
+.check_title h2 a {
+  color: #2f7dfc;
+  text-decoration: underline;
+}
 
 
 
