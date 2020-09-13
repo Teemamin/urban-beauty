@@ -48,5 +48,5 @@ def checkout_address_create(request):
         else:
             print("Error")
             return redirect(redirect_path)
-       
+
     return redirect(redirect_path) 

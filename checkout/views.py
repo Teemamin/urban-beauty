@@ -3,6 +3,9 @@ from shopping_bag.models import Bag
 from .models import Order, Billing
 from profiles.models import GuestEmail, Address
 from profiles.forms import GuestForm, AddressForm
+from django.conf import settings
+import stripe
+
 
 # Create your views here.
 
@@ -49,7 +52,7 @@ def checkout(request):
             order_obj.mark_as_paid()
             # request.session['bag_items'] = 0
             del request.session['bag_id']
-            return redirect("/checkout/success")
+            return redirect("/checkout/checkout_success")
 
     context = {
         'order': order_obj,
@@ -61,6 +64,21 @@ def checkout(request):
     }
     return render(request, 'checkout/checkout.html', context)
 
+
 def checkout_success(request):
+    # context = {
+
+    # }
     return render(request, 'checkout/checkout_success.html')
 
+
+
+def payment_method(request):
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+    if request.method == "POST":
+        print(request.POST)
+    context = {
+        'publish_key': stripe_public_key,
+    }
+    return render(request, 'checkout/payment_method.html', context)

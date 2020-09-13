@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block additionalcss %}
+    <link rel="stylesheet" href="{% static 'checkout/css/style.css' %}">
+
+{% endblock %}
+
 {% block content %}
 
     <section class="breadcrumb breadcrumb_bg">
@@ -96,18 +101,7 @@
                         
                     </div>
                         </div>
-                
-                {% elif not order.billing_address %}
-
-                    <div class="row">
-                        <div class="col-md-6 mx-auto col-10">
-                            <p class="lead">Billing Address</p>
-                            <hr/>
-                            {% url "checkout_address_create" as checkout_address_create %}
-                            {% include 'profiles/address_form.html' with form=address_form next_url=request.build_absolute_uri action_url=checkout_address_create address_type='billing' %}
-                        </div>
-                    </div>
-
+                     
                 {% else %}
                     <p>bag total: {{order.bag.total}}</p>
                     <p>deivery : {{order.delivery_total}}</p>
@@ -163,4 +157,8 @@
             </form>
         {% endif %}
     {% endif %} -->
+{% endblock %}
+ {% block postloadjs %}
+ {{ block.super }}
+   <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
