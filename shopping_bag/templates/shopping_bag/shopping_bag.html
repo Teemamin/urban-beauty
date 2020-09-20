@@ -19,7 +19,7 @@
    <section class="cart_area section_padding">
     <div class="container">
       <div class="cart_inner">
-        {% if cart.products.exists %}
+        {% if cart.order_line_items.exists %}
             <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -27,21 +27,21 @@
                     <th scope="col">Product</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
+                    <th scope="col">Sub-Total</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for itm in cart.products.all%}
+                {% for itm in cart.order_line_items.all%}
                 <tr>
                     <td>
                     <div class="media">
                         <div class="d-flex">
-                        <img src="{{itm.image.url}}" alt="{{itm.name}}" />
+                        <img src="{{itm.product.image.url}}" alt="{{itm.product.name}}" />
                         </div>
                         <div class="media-body">
-                        <p>{{itm.name}}</p>
-                        {%if itm.has_sizes %}
-                            <p>Size: {{itm.size}}</p>
+                        <p>{{itm.product.name}}</p>
+                        {%if itm.product.has_sizes %}
+                            <p> Size:{{itm.size}}</p>
                         {% else %}
                         <p>N/A</p>
                        {% endif %}
@@ -54,9 +54,8 @@
                     </td>
                     <td>
                     <div class="product_count">
-                        <!-- <span class="input-number-decrement"> <i class="ti-minus"></i></span> -->
-                        <input class="input-number" type="number" value="1" min="1" max="50">
-                        <!-- <span class="input-number-increment"> <i class="fas fa-plus"></i></span> -->
+                        <!-- <input class="input-number" type="number" value="1" min="1" max="50"> -->
+                        <p> {{cart.quantity}}</p>
                     </div>
                     </td>
                     <td>
@@ -83,7 +82,7 @@
                     <h5>Delivery</h5>
                     </td>
                     <td>
-                    <h5>${{delivery_cost}}</h5>
+                    <h5>${{settings.DELIVERY_PERCENT}}</h5>
                     </td>
                 </tr>
                 <tr class="">

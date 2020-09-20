@@ -128,6 +128,11 @@ class Order(models.Model):
         self.save()
         return total_formated
 
+    # @property
+    # def get_delivery_total(self):
+    #     delivery = self.delivery_total
+    #     return delivery
+
     def save(self, *args, **kwargs):
         """
         Set the order number if it hasn't been set already.

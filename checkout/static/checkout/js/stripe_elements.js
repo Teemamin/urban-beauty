@@ -1,5 +1,16 @@
+let paymentForm = $(".payment-form")
+
+if(paymentForm.length > 1){
+    alert("not allowed ")
+    paymentForm.css('display', 'none')
+}
+else if(paymentForm.length == 1){
+    stripePubKey = paymentForm.attr('data-token')
+
+}
+
 // Create a Stripe client.
-var stripe = Stripe('pk_test_51HEwKbAidDhnc2aDv74GjqeSzAWhSHAl5KmuBdGUqtm1IjfAkcLzvFx1nADFYvjgcwwzcMuqwAMXiTQsjFB0IRoj00dTNvSjPX');
+var stripe = Stripe(stripePubKey);
 
 // Create an instance of Elements.
 var elements = stripe.elements();
@@ -58,13 +69,14 @@ form.addEventListener('submit', function(event) {
 // Submit the form with the token ID.
 function stripeTokenHandler(token) {
   // Insert the token ID into the form so it gets submitted to the server
-  var form = document.getElementById('payment-form');
-  var hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', token.id);
-  form.appendChild(hiddenInput);
+//   var form = document.getElementById('payment-form');
+//   var hiddenInput = document.createElement('input');
+//   hiddenInput.setAttribute('type', 'hidden');
+//   hiddenInput.setAttribute('name', 'stripeToken');
+//   hiddenInput.setAttribute('value', token.id);
+//   form.appendChild(hiddenInput);
 
   // Submit the form
-  form.submit();
+//   form.submit();
+    console.log(token.id)
 }

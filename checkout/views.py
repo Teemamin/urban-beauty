@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import (
+    render, redirect, reverse, HttpResponse
+)
 from shopping_bag.models import Bag
 from .models import Order, Billing
 from profiles.models import GuestEmail, Address
 from profiles.forms import GuestForm, AddressForm
 from django.conf import settings
+import json
+
 import stripe
 
 
@@ -78,6 +82,7 @@ def payment_method(request):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     if request.method == "POST":
         print(request.POST)
+        return json
     context = {
         'publish_key': stripe_public_key,
     }

@@ -11,7 +11,7 @@
   
     <div class="col-10 col-md-6 mx-auto">
         <h3>Add Payment Method</h3>
-        <form action="/charge" method="post" id="payment-form" data-token="{{ publish_key }}">
+        <form action="{% url 'payment_method' %}" method="post" id="payment-form" class="payment-form" data-token="{{ publish_key }}" data-url="#">
             <div class="form-row">
                 <!-- <label for="card-element">
                 Credit or debit card

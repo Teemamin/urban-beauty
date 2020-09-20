@@ -32,11 +32,21 @@ class BagManager(models.Manager):
         return self.model.objects.create(user=user_obj)
 
 
+class OrderLineItem(models.Model):
+    product = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
+    product_size = models.CharField(max_length=2, null=True, blank=True) # XS, S, M, L, XL
+    quantity = models.IntegerField(null=False, blank=False, default=0)
+
+    def __str__(self):
+        return str(self.product)
+
+
 class Bag(models.Model):
     user = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.CASCADE
     )
-    products = models.ManyToManyField(Product, blank=True)
+    order_line_items = models.ManyToManyField(OrderLineItem, blank=True)
+
     subtotal = models.DecimalField(
         default=0.00, max_digits=100, decimal_places=2
     )
@@ -53,23 +63,26 @@ class Bag(models.Model):
 def m2m_changed_bag_receiver(sender, instance, action, *args, **kwargs):
     if action == 'post_add' or action == 'post_remove'\
          or action == 'post_clear':
-        products = instance.products.all()
+        order_line_items = instance.order_line_items.all()
         total = 0
-        for x in products:
-            total += x.price
+        for x in order_line_items:
+            total += x.product.price * x.quantity
         if instance.subtotal != total:
             instance.subtotal = total
             instance.save()
 
 
-m2m_changed.connect(m2m_changed_bag_receiver, sender=Bag.products.through)
+m2m_changed.connect(m2m_changed_bag_receiver, sender=Bag.order_line_items.through)
 
 
 def pre_save_bag_receiver(sender, instance, *args, **kwargs):
     if instance.subtotal > 0:
-        instance.total = float(instance.subtotal) * float(1.08)
+        instance.total = float(instance.subtotal) * float(settings.DELIVERY_PERCENT)
     else:
         instance.total = 0.00
 
 
 pre_save.connect(pre_save_bag_receiver, sender=Bag)
+
+
+
